@@ -6,8 +6,8 @@
 // @author       @thifanym
 // @match        https://adapt-dub.amazon.com/*
 // @grant        GM_addStyle
-// @updateURL    https://raw.githubusercontent.com/yourusername/repo-name/main/adapt-helper.js
-// @downloadURL  https://raw.githubusercontent.com/yourusername/repo-name/main/adapt-helper.js
+// @updateURL    https://raw.githubusercontent.com/Thifanym/Adapt-Helper-/refs/heads/main/Script
+// @downloadURL  https://raw.githubusercontent.com/Thifanym/Adapt-Helper-/refs/heads/main/Script
 // ==/UserScript==
 
 (function() {
