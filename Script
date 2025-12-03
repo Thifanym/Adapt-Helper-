@@ -2,10 +2,12 @@
 // @name         ADAPT Helper for L4+ Ops
 // @namespace    http://tampermonkey.net/
 // @version      3.4
-// @description  Assists L4+ Ops leaders in creating standardized ADAPT documentation
+// @descescription  Assists L4+ Ops leaders in creating standardized ADAPT documentation
 // @author       @thifanym
 // @match        https://adapt-dub.amazon.com/*
 // @grant        GM_addStyle
+// @updateURL    https://raw.githubusercontent.com/yourusername/repo-name/main/adapt-helper.js
+// @downloadURL  https://raw.githubusercontent.com/yourusername/repo-name/main/adapt-helper.js
 // ==/UserScript==
 
 (function() {
