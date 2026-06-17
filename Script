@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         ADAPT Helper for L4+ Ops
 // @namespace    http://tampermonkey.net/
-// @version      3.4
-// @descescription  Assists L4+ Ops leaders in creating standardized ADAPT documentation
+// @version      3.5
+// @description  Assists L4+ Ops leaders in creating standardized ADAPT documentation
 // @author       @thifanym
 // @match        https://adapt-dub.amazon.com/*
 // @grant        GM_addStyle
@@ -117,7 +117,7 @@
             "Refusal to show badge",
             "Standard Work",
             "Thank you!",
-            "Time off task/idleness under 90 minutes",
+            "Non-Productive Time",
             "Unpaid break clock-out failures",
             "Working time violations",
             "Workstation cleanliness"
@@ -137,12 +137,12 @@
         "Pack Singles",
         "PCNS",
         "Pick",
+        "P2R",
         "Stow",
-        "Ship Dock",
         "Receive",
         "ICQA",
         "IB Dock",
-        "P2R",
+        "Ship Dock",
         "Outside of permitted areas",
         "Other (specify)"
     ];
@@ -172,7 +172,7 @@ STU completed by: ${data.stuHeldBy}
 
 On ${data.date} at ${data.time}, you were observed using your mobile phone in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}Mobile phone use in working areas can create safety hazards and may also risk exposure of confidential, customer, proprietary, or other sensitive business information.
 
-Based the discussion held by ${data.stuHeldBy}, you stated that ${data.aaSTU}. This is a violation of our Mobile Phone Policy and you are receiving this ${data.feedbackLevel}.`,
+Based on the discussion held by ${data.stuHeldBy}, you stated that ${data.aaSTU}. This is a violation of our Mobile Phone Policy and you are receiving this ${data.feedbackLevel}.`,
                 improvement: `Areas of Improvement:
 Safety is our top priority and must remain at the forefront of everything you do. As stated in the Mobile Phone Policy, Category Two offenses are considered serious and generally result in progressive discipline. Infractions may include:
 (1) Mobile phone use while performing work tasks and walking
@@ -184,17 +184,33 @@ Moving forward, you must ensure that you are following Amazon's Mobile Phone Pol
         },
         "Standard Work": {
             template: (data) => ({
-                details: `Misconduct: Failure to follow standard Work practices
+                details: `Misconduct: Failure to follow standard work practices
 
-On ${data.date}, you failed to follow appropriate standard work practices. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.aaSTU}.`,
+On ${data.date}, you failed to follow appropriate standard work practices. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.stuHeldBy} held a seek to understand conversation with you. You identified barriers including ${data.aaSTU}.`,
                 improvement: `As detailed above, you have failed to meet Amazon's Standards of Conduct and behavioural expectations. Amazon expects associates to adhere to standard operating procedures with regards to processing orders in each function within the FC. Failure to adhere to standard work guidelines includes, but is not limited to, any action that artificially inflates an individual's rate (i.e. double-scanning, machine-gunning), dishonest behaviour or discriminatory work selection that directly or indirectly hinders others' performance (i.e. cherry picking), knowingly causing a virtual/physical mismatch, or circumventing critical steps in the process/PMV. Failure to meet these expectations and/or future violations of these guidelines may result in additional discipline, up to and including termination.`
             })
         },
-        "Time off task/idleness under 90 minutes": {
+        "Refusal to show badge": {
             template: (data) => ({
-                details: `Misconduct: Time off task/idleness
+                details: `Misconduct: Refusal to show badge
 
-On ${data.date}, you had a total of ${data.idleTime} minutes of unknown idle time. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.stuHeldBy} held a seek to understand conversation with you to follow up on the reason(s) for this time off task. You identified barriers including ${data.aaSTU}. Based on your explanation, the manager validated that during this time, you were not actively engaged in a work process for reasons within your control. This behaviour violates Amazon's Standards of Conduct, and therefore you are receiving this ${data.feedbackLevel}.`,
+On ${data.date}, you refused to show your badge when requested in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.stuHeldBy} held a seek to understand conversation with you. You identified barriers including ${data.aaSTU}. All associates are required to visibly display their badge at all times while on site for security and identification purposes. Based on the discussion, you did not provide reasonable mitigations for your behaviour and therefore you are receiving this ${data.feedbackLevel}.`,
+                improvement: `Amazon requires all associates to wear and display their badge visibly at all times while on site. Your badge is essential for security, identification, and ensuring a safe working environment for everyone. Refusal to show your badge when requested by a member of the leadership or security team is a violation of Amazon's Standards of Conduct. Future instances of this behaviour may result in further corrective action, up to and including termination of employment.`
+            })
+        },
+        "Unpaid break clock-out failures": {
+            template: (data) => ({
+                details: `Misconduct: Unpaid break clock-out failure
+
+On ${data.date}, you failed to clock out for your unpaid break. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.stuHeldBy} held a seek to understand conversation with you. You identified barriers including ${data.aaSTU}. It is your responsibility to clock out at the start of your unpaid break and clock back in at the end. Failure to do so is a violation of Amazon's attendance and timekeeping policy, and therefore you are receiving this ${data.feedbackLevel}.`,
+                improvement: `You are required to accurately record your working time by clocking out at the start of your unpaid break and clocking back in when your break ends. Failure to clock out for unpaid breaks results in inaccurate time records and may be considered a breach of Amazon's Standards of Conduct. Going forward, you must ensure you clock out and back in for all unpaid breaks. Further instances of clock-out failures may result in additional corrective action, up to and including termination of employment.`
+            })
+        },
+        "Non-Productive Time": {
+            template: (data) => ({
+                details: `Misconduct: Non-Productive Time
+
+On ${data.date}, you had a total of ${data.idleTime} minutes of unknown idle time. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.stuHeldBy} held a seek to understand conversation with you to follow up on the reason(s) for this non-productive time. You identified barriers including ${data.aaSTU}. Based on your explanation, the manager validated that during this time, you were not actively engaged in a work process for reasons within your control. This behaviour violates Amazon's Standards of Conduct, and therefore you are receiving this ${data.feedbackLevel}.`,
                 improvement: `To work together successfully as a team, we need your partnership. As an Amazon employee, we expect you to come to work and give your best effort each day. This means working safely, following standard work, positively contributing to the team, staying actively engaged in your assigned task, communicating barriers, and requesting additional training or support when you need it. Amazon expects you to remain productive during your scheduled shift. In the event you are logged off software tools for a prolonged time, notify a manager so they can assist in addressing any job-related barriers. Further incidents of idle time within your control will lead to additional discipline, up to and including termination of employment.`
             })
         },
@@ -202,15 +218,15 @@ On ${data.date}, you had a total of ${data.idleTime} minutes of unknown idle tim
             template: (data) => ({
                 details: `Misconduct: Extended break/Break timing violations
 
-On ${data.date}, you ha had an extended ${data.breakNumber} break on shift. Your break lasted ${data.breakTime} minutes. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}During STU conversation with ${data.stuHeldBy}, you identified barriers including ${data.aaSTU}. It is important to remain productive at Amazon by leaving for and returning from breaks at the correct time. Based on the discussion, you did not provide reasonable mitigations and therefore you are receiving this ${data.feedbackLevel}.`,
+On ${data.date}, you had an extended ${data.breakNumber} break on shift. Your break lasted ${data.breakTime} minutes. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}During STU conversation with ${data.stuHeldBy}, you identified barriers including ${data.aaSTU}. It is important to remain productive at Amazon by leaving for and returning from breaks at the correct time. Based on the discussion, you did not provide reasonable mitigations and therefore you are receiving this ${data.feedbackLevel}.`,
                 improvement: `Going forward, you are expected to leave and come back from breaks and lunches on time and remain on task while performing any function. You are required to remain productive during your scheduled shift which includes leaving your work area at your assigned break/lunch start time and arriving back in your work area ready to work by the end of your break/lunch end time. If you have any barriers or concerns please notify your Leadership immediately. Further incidents of unproductive time may lead to further corrective action up to and including termination of employment.`
             })
         },
         "Food/beverage on work floor": {
             template: (data) => ({
-                details: `Misconduct: Food/Beverage on shop Floor
+                details: `Misconduct: Food/Beverage on Shop Floor
 
-On ${data.date}, you were observed with food/drink while on the FC floor. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation took place with ${data.stuHeldBy} and yourself on ${data.date} to which you stated ${data.aaSTU}. Water is the only food or beverage allowed on the FC floor. Having food or drink (besides water) on the FC floor is considered a violation of the Standards of Conduct, specifically "Creating or contributing to disorderly or unsanitary conditions.". You are therefor receiving this ${data.feedbackLevel}. `,
+On ${data.date}, you were observed with food/drink while on the FC floor. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation took place with ${data.stuHeldBy} and yourself on ${data.date} to which you stated ${data.aaSTU}. Water is the only food or beverage allowed on the FC floor. Having food or drink (besides water) on the FC floor is considered a violation of the Standards of Conduct, specifically "Creating or contributing to disorderly or unsanitary conditions.". You are therefore receiving this ${data.feedbackLevel}. `,
                 improvement: `Moving forward, you are only permitted to have clear water in a clear bottle with a secured top on the floor. Future violations of Amazon's Standards of Conduct will result in further corrective action, up to and including termination.`
             })
         },
@@ -219,14 +235,14 @@ On ${data.date}, you were observed with food/drink while on the FC floor. ${data
                 details: `Misconduct: Cherry Picking
 
 On ${data.date}, you were observed cherry picking while performing work in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}. Cherry picking is against standard work and creates an unfair condition for other associates. You were informed of expectations going forward and notified of this ${data.feedbackLevel}.`,
-                improvement: `As detailed above, you have failed to meet Amazon's Standards of Conduct and behavioural expectations. Amazon expects associates to adhere to standard operating procedures with regards to processing orders in each function within the FC. Failure to adhere to standard work guidelines includes, but is not limited to, any action which artificially inflates an individual's rate (i.e. double-scanning, machine-gunning), dishonest behaviour or discriminatory work selection which ch directly or indirectly hinders others' performance (i.e. cherry picking), knowingly causing a virtual/physical mismatch, or circumventing critical steps in the process. Failure to meet these expectations and/or future violations of these guidelines may result in additional discipline, up to and including termination.`
+                improvement: `As detailed above, you have failed to meet Amazon's Standards of Conduct and behavioural expectations. Amazon expects associates to adhere to standard operating procedures with regards to processing orders in each function within the FC. Failure to adhere to standard work guidelines includes, but is not limited to, any action which artificially inflates an individual's rate (i.e. double-scanning, machine-gunning), dishonest behaviour or discriminatory work selection which directly or indirectly hinders others' performance (i.e. cherry picking), knowingly causing a virtual/physical mismatch, or circumventing critical steps in the process. Failure to meet these expectations and/or future violations of these guidelines may result in additional discipline, up to and including termination.`
             })
         },
         "Dress code/grooming violations": {
             template: (data) => ({
                 details: `Misconduct: Dress code/grooming violations
 
-On ${data.date}, you reported to work in violation of Amazon's Dress and Grooming Standards Policy. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}. Amazon encourages Associates to wear casual and comfortable clothing, however, not all casual and comfortable clothing is appropriate or safe in our building. You are being addressed due to the safety risk to yourself and/or other associates created by violation of the Amazon Dress Code. You are therefor receiving this ${data.feedbackLevel}.`,
+On ${data.date}, you reported to work in violation of Amazon's Dress and Grooming Standards Policy. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}. Amazon encourages Associates to wear casual and comfortable clothing, however, not all casual and comfortable clothing is appropriate or safe in our building. You are being addressed due to the safety risk to yourself and/or other associates created by violation of the Amazon Dress Code. You are therefore receiving this ${data.feedbackLevel}.`,
                 improvement: `Immediate improvement and adherence to the Amazon's Dress and Grooming policy is required. Repeated violations of this policy will result in further corrective discipline up to and including termination.`
             })
         },
@@ -242,7 +258,7 @@ On ${data.date}, you worked over 12/60 hours. ${data.incidentDetails ? `Specific
             template: (data) => ({
                 details: `Misconduct: Inappropriate language/communication
 
-On ${data.date}, you were observed using inappropriate language or communication. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated }${data.aaSTU}. Based on the discussion, you did not provide reasonable mitigations for your behaviour and therefore you are receiving this ${data.feedbackLevel}.`,
+On ${data.date}, you were observed using inappropriate language or communication. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}. Based on the discussion, you did not provide reasonable mitigations for your behaviour and therefore you are receiving this ${data.feedbackLevel}.`,
                 improvement: `Amazon expects all associates to maintain professional and respectful communication at all times. Inappropriate language, gestures, or actions create a negative work environment and are not tolerated. Future instances of such behaviour may result in further corrective action, up to and including termination of employment.`
             })
         },
@@ -250,7 +266,7 @@ On ${data.date}, you were observed using inappropriate language or communication
             template: (data) => ({
                 details: `Misconduct: Insubordination/refusal to work
 
-On ${data.date}, you demonstrated insubordination or refused to work as directed. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated }}${data.aaSTU}. Based on the discussion, you did not provide reasonable mitigations for your behaviour and therefore you are receiving this ${data.feedbackLevel}.`,
+On ${data.date}, you demonstrated insubordination or refused to work as directed. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}. Based on the discussion, you did not provide reasonable mitigations for your behaviour and therefore you are receiving this ${data.feedbackLevel}.`,
                 improvement: `Amazon expects all associates to follow reasonable instructions from their supervisors and to perform their assigned duties. Insubordination or refusal to work undermines team effectiveness and productivity. Future instances of such behaviour may result in further corrective action, up to and including termination of employment.`
             })
         },
@@ -258,7 +274,7 @@ On ${data.date}, you demonstrated insubordination or refused to work as directed
             template: (data) => ({
                 details: `Misconduct: Mobile phone use whilst operating equipment
 
-On ${data.date}, you were observed using a mobile phone while operating equipment in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.aaSTU}.`,
+On ${data.date}, you were observed using a mobile phone while operating equipment in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}.`,
                 improvement: `The use of mobile phones while operating equipment is strictly prohibited due to the serious safety risks it poses. This behaviour is a violation of Amazon's safety policies. Future violations of this nature will result in further disciplinary action, up to and including termination of employment.`
             })
         },
@@ -266,7 +282,7 @@ On ${data.date}, you were observed using a mobile phone while operating equipmen
             template: (data) => ({
                 details: `Misconduct: PIT/Tug violations
 
-On ${data.date}, you were observed violating PIT/Tug safety procedures in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.aaSTU}.`,
+On ${data.date}, you were observed violating PIT/Tug safety procedures in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}.`,
                 improvement: `PIT/Tug safety procedures are critical for maintaining a safe work environment. Violations of these procedures put you and your colleagues at risk. Adherence to all safety protocols is mandatory. Future violations will result in further disciplinary action, up to and including termination of employment.`
             })
         },
@@ -274,7 +290,7 @@ On ${data.date}, you were observed violating PIT/Tug safety procedures in ${data
             template: (data) => ({
                 details: `Misconduct: TDR policy breaches
 
-On ${data.date}, you were observed breaching TDR (Trailer Dock and Release) policy in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.aaSTU}.`,
+On ${data.date}, you were observed breaching TDR (Trailer Dock and Release) policy in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}.`,
                 improvement: `TDR procedures are crucial for the safety of all associates and the integrity of our operations. Strict adherence to TDR policies is required at all times. Any future breaches of TDR policy will result in further disciplinary action, up to and including termination of employment.`
             })
         },
@@ -282,7 +298,7 @@ On ${data.date}, you were observed breaching TDR (Trailer Dock and Release) poli
             template: (data) => ({
                 details: `Misconduct: Not wearing PPE in restricted zone
 
-On ${data.date}, you were observed not wearing the required Personal Protective Equipment (PPE) in a restricted zone in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.aaSTU}.`,
+On ${data.date}, you were observed not wearing the required Personal Protective Equipment (PPE) in a restricted zone in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}.`,
                 improvement: `Wearing appropriate PPE in restricted zones is mandatory for your safety and the safety of others. Failure to do so is a serious violation of Amazon's safety policies. Future instances of not wearing required PPE will result in further disciplinary action, up to and including termination of employment.`
             })
         },
@@ -290,7 +306,7 @@ On ${data.date}, you were observed not wearing the required Personal Protective 
             template: (data) => ({
                 details: `Misconduct: Serious safety breaches
 
-On ${data.date}, you were involved in a serious safety breach in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}${data.aaSTU}.`,
+On ${data.date}, you were involved in a serious safety breach in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}A seek to understand conversation with ${data.stuHeldBy} took place with you to which you stated ${data.aaSTU}.`,
                 improvement: `Safety is our top priority at Amazon. Serious safety breaches put you and your colleagues at significant risk and are not tolerated. This incident is a severe violation of our safety policies. Any future safety breaches of this nature will result in further disciplinary action, up to and including immediate termination of employment.`
             })
         },
@@ -310,6 +326,14 @@ On ${data.date}, you failed to maintain your workstation according to Amazon's c
 
 As detailed above, you have failed to meet this expectation. This behavior violates Amazon's Standards of Conduct, and therefore you are receiving this ${data.feedbackLevel}.`,
                 improvement: `Going forward, you are expected to follow all standard work guidelines to ensure efficient and fair work for all associates. Failure to comply with these expectations may result in additional disciplinary action up to and including termination.`
+            })
+        },
+        "Clock-in/out timing violations": {
+            template: (data) => ({
+                details: `Misconduct: Early In/Late Out Violation (unapproved overtime)
+
+On ${data.date} at ${data.time}, you clocked in early/out late without prior approval in ${data.location}. ${data.incidentDetails ? `Specifically, ${data.incidentDetails}. ` : ''}During the seek to understand conversation with ${data.stuHeldBy}, you stated ${data.aaSTU}. Overtime hours must be pre-approved by your manager prior to being worked. This is a violation of the Amazon Standards of Conduct policy and therefore you are receiving this ${data.feedbackLevel}.`,
+                improvement: `Associate commitment to completing assigned tasks is critical in order to be Earth's most customer-centric company. As owners, we count on you to help achieve this mission. Your customers and teammates count on you to remain on task and complete your assigned job duties. Failure to adhere to start times, shift end times, or break time policies will be addressed through performance management using coaching or corrective actions. It is important for you to understand that meeting task standards is a critical component of your job. Immediate improvement is expected. Further Standard of Conduct violations may result in corrective action, up to and including termination.`
             })
         },
         "Thank you!": {
@@ -504,14 +528,14 @@ On ${data.date}, I was truly impressed by your work in ${data.location}. ${data.
 
         behaviourSelect.onchange = () => {
             if (ESCALATED_BEHAVIOURS.includes(behaviourSelect.value)) {
-                feedbackLevelSelect.value = 'First Written Warning';
+                feedbackLevelSelect.value = 'First Written Conversation';
                 warningMessage.textContent = 'This behaviour may require escalation. Please contact HR.';
                 warningMessage.style.display = 'block';
             } else {
                 warningMessage.style.display = 'none';
             }
 
-            if (behaviourSelect.value === 'Time off task/idleness under 90 minutes') {
+            if (behaviourSelect.value === 'Non-Productive Time') {
                 idleTimeInput.style.display = 'block';
                 breakTimeInput.style.display = 'none';
             } else if (behaviourSelect.value === 'Break timing violations') {
@@ -564,4 +588,3 @@ On ${data.date}, I was truly impressed by your work in ${data.location}. ${data.
         initialize();
     }
 })();
-
